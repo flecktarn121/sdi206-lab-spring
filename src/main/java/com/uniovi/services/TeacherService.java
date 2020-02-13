@@ -5,58 +5,35 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.Teacher;
+import com.uniovi.repositories.TeacherRepository;
 
 @Service
 public class TeacherService {
 
-	private List<Teacher> teachers;
-
-	@PostConstruct
-	private void init() {
-		Teacher t1 = new Teacher();
-		t1.setName("Paco");
-		t1.setSurname("García");
-		t1.setDni("1");
-		t1.setCategory("Profesor titular");
-
-		Teacher t2 = new Teacher();
-		t1.setName("Carmen");
-		t1.setSurname("Polo");
-		t1.setDni("2");
-		t1.setCategory("Profesor contratado");
-
-		this.teachers = new ArrayList<Teacher>();
-		this.teachers.add(t1);
-		this.teachers.add(t2);
-	}
+	@Autowired
+	private TeacherRepository repository;
 
 	public List<Teacher> getTeachers() {
-		return this.teachers;
+		List<Teacher> teachers = new ArrayList<Teacher>();
+		repository.findAll().forEach(teachers::add);
+		return teachers;
 	}
 
-	public Teacher getTeacher(String dni) {
-
-		Teacher t = null;
-
-		for (Teacher teacher : this.teachers) {
-			if (teacher.getDni().equals(dni)) {
-				t = teacher;
-				break;
-			}
-		}
-		return t;
+	public Teacher getTeacher(Long id) {
+		return repository.findById(id).get();
 	}
 
 	public void addTeacher(Teacher teacher) {
-		this.teachers.add(teacher);
+		repository.save(teacher);
 	}
 
-	public void deleteTeacher(String dni) {
+	public void deleteTeacher(Long id) {
 
-		this.teachers.removeIf((t) -> t.getDni().equals(dni));
+		repository.deleteById(id);
 	}
 
 }
