@@ -1,17 +1,17 @@
 package com.uniovi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.uniovi.entities.Teacher;
 import com.uniovi.services.TeacherService;
 
-@RestController
+@Controller
 public class TeacherController {
 
 	@Autowired
@@ -20,13 +20,18 @@ public class TeacherController {
 	@RequestMapping(value="/teacher/add", method = RequestMethod.POST)
 	public String add(@ModelAttribute Teacher teacher) {
 		teacherService.addTeacher(teacher);
-		return "Profesor añadido";
+		return "redirect:/teacher/list";
+	}
+
+	@RequestMapping(value="/teacher/add")
+	public String getTeacher() {
+		return "teacher/add";
 	}
 
 	@RequestMapping("/teacher/delete/{id}")
 	public String delete(@PathVariable Long id) {
 		this.teacherService.deleteTeacher(id);
-		return "Profesor borrado";
+		return "redirect:/teacher/list";
 	}
 
 	@RequestMapping("/teacher/details/{id}")
@@ -40,5 +45,11 @@ public class TeacherController {
 		teacher.setId(id);
 		teacherService.addTeacher(teacher);
 		return "Profesor editado";
+	}
+	
+	@RequestMapping("/teacher/list")
+	public String getList(Model model) {
+		model.addAttribute("teacherList", teacherService.getTeachers());
+		return "teacher/list";
 	}
 }
