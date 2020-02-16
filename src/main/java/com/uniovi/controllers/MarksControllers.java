@@ -23,6 +23,13 @@ public class MarksControllers {
 		return "mark/list";
 	}
 
+	@RequestMapping("/mark/list/update")
+	public String updateList(Model model) {
+		model.addAttribute("markList", marksService.getMarks());
+		//We reference just the element marked with id tableMarks
+		return "mark/list :: tableMarks";
+	}
+
 	@RequestMapping(value = "/mark/add", method = RequestMethod.POST)
 	public String setMark(@ModelAttribute Mark mark) {
 		marksService.addMark(mark);
