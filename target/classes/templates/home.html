@@ -6,19 +6,19 @@
 	<nav th:replace="fragments/nav" />
 	<div class="container" style="text-align: center">
 		<h2 th:text="#{welcome.message}"></h2>
-		<h3>Esta es una zona privada la web</h3>
-		<p>
+		<h3 th:text="#{private.message}">Esta es una zona privada la web</h3>
+		<p th:text="#{userauth.message}">
 			Usuario Autenticado como : <b th:inline="text">
 				[[${#httpServletRequest.remoteUser}]] </b>
 		</p>
-		<p>Notas del usuario</p>
+		<p th:text="#{usermarks.message}">Notas del usuario</p>
 		<div class="table-responsive">
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th class="col-md-1">id</th>
-						<th>Descripción</th>
-						<th>Puntuación</th>
+						<th th:text="#{id.message}" class="col-md-1">id</th>
+						<th th:text="#{description.message}">Descripción</th>
+						<th th:text="#{score.message}">Puntuación</th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
