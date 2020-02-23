@@ -11,28 +11,38 @@
 			<img src="/img/student-48.png" alt="logo" />
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
-			<ul class="nav navbar-nav">
+			<ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
 				<li><a th:text="#{home.messages}" href="/">Home</a></li>
-				<li id="marks-menu" class="dropdown"><a th:text="#{marksmanag.messages}" class="dropdown-toggle"
+				<li id="marks-menu" class="dropdown"><a
+					th:text="#{marksmanag.messages}" class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> Gestión de notas<span
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a th:text="#{markadd.messages}" href="/mark/add">Agregar nota</a></li>
-						<li><a th:text="#{marklist.messages}" href="/mark/list">Ver notas</a></li>
+						<li sec:authorize="hasRole('ROLE_PROFESSOR')"><a
+							th:text="#{markadd.messages}" href="/mark/add">Agregar nota</a></li>
+						<li><a th:text="#{marklist.messages}" href="/mark/list">Ver
+								notas</a></li>
 					</ul></li>
-				<li id="users-menu" class="dropdown"><a th:text="#{usermanag.messages}" class="dropdown-toggle"
+				<li id="users-menu" class="dropdown" sec:authorize="hasRole('ROLE_ADMIN')"><a
+					th:text="#{usermanag.messages}" class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> Gestión de usuarios<span
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a th:text="#{useradd.messages}" href="/user/add">Agregar usuario</a></li>
-						<li><a th:text="#{userlist.messages}" href="/user/list">Ver usuarios</a></li>
+						<li><a th:text="#{useradd.messages}" href="/user/add">Agregar
+								usuario</a></li>
+						<li><a th:text="#{userlist.messages}" href="/user/list">Ver
+								usuarios</a></li>
 					</ul></li>
-				<li id="teachers-menu" class="dropdown"><a th:text="#{teachermanag.messages}" class="dropdown-toggle"
+				<li id="teachers-menu" class="dropdown"
+					sec:authorize="hasRole('ROLE_ADMIN')"><a
+					th:text="#{teachermanag.messages}" class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> Gestión de profesores<span
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a th:text="#{teacheradd.messages}" href="/teacher/add">Agregar profesores</a></li>
-						<li><a th:text="#{teacherlist.messages}" href="/teacher/list">Ver profesores</a></li>
+						<li><a th:text="#{teacheradd.messages}" href="/teacher/add">Agregar
+								profesores</a></li>
+						<li><a th:text="#{teacherlist.messages}" href="/teacher/list">Ver
+								profesores</a></li>
 					</ul></li>
 			</ul>
 
@@ -59,11 +69,16 @@
 								th:text="#{language.ast}">Asturiano</span>
 						</a></li>
 					</ul></li>
-				<li><a href="/signup" th:text="#{signup.message}"> <span
+				<li sec:authorize="!isAuthenticated()"><a href="/signup"
+					th:text="#{signup.message}"> <span
 						class="glyphicon glyphicon-user"></span> Registrate
 				</a></li>
-				<li><a href="/login" th:text="#{login.message}"> <span
+				<li sec:authorize="!isAuthenticated()"><a href="/login"
+					th:text="#{login.message}"> <span
 						class="glyphicon glyphicon-log-in"></span> Identifícate
+				</a></li>
+				<li sec:authorize="isAuthenticated()"><a href="/logout"> <span
+						class="glyphicon glyphicon-log-out"></span> Desconectar
 				</a></li>
 			</ul>
 		</div>
