@@ -25,6 +25,10 @@ public class UsersService {
 	public void init() {
 	}
 
+	public List<User> searchUsersByNameAndSurname(String searchText) {
+		return usersRepository.searchByNameAndSurname(searchText);
+	}
+
 	public List<User> getUsers() {
 		List<User> users = new ArrayList<User>();
 		usersRepository.findAll().forEach(users::add);
