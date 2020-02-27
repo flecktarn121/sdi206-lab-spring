@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.Mark;
+import com.uniovi.entities.Teacher;
 import com.uniovi.entities.User;
 
 @Service
@@ -19,6 +20,9 @@ public class InsertSampleDataService {
 
 	@Autowired
 	private RolesService rolesService;
+	
+	@Autowired
+	private TeacherService teacherService;
 
 	@PostConstruct
 	public void init() {
@@ -86,6 +90,13 @@ public class InsertSampleDataService {
 		usersService.addUser(user4);
 		usersService.addUser(user5);
 		usersService.addUser(user6);
+		
+		Teacher t1 = new Teacher();
+		t1.setDni("99999988F");
+		t1.setName("Javier");
+		t1.setSurname("Escalada");
+		t1.setCategory("catedratico");
+		teacherService.addTeacher(t1);
 	}
 
 }

@@ -34,12 +34,12 @@
 								usuarios</a></li>
 					</ul></li>
 				<li id="teachers-menu" class="dropdown"
-					sec:authorize="hasRole('ROLE_ADMIN')"><a
+					><a
 					th:text="#{teachermanag.messages}" class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> Gestión de profesores<span
 						class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a th:text="#{teacheradd.messages}" href="/teacher/add">Agregar
+						<li><a th:text="#{teacheradd.messages}" href="/teacher/add" sec:authorize="hasRole('ROLE_ADMIN')">Agregar
 								profesores</a></li>
 						<li><a th:text="#{teacherlist.messages}" href="/teacher/list">Ver
 								profesores</a></li>
