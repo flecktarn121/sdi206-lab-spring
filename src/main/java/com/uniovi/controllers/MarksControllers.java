@@ -67,7 +67,8 @@ public class MarksControllers {
 	public String updateList(Model model, Pageable pageable, Principal principal) {
 		String dni = principal.getName(); // DNI es el name de la autenticación
 		User user = usersService.getUserByDni(dni);
-		model.addAttribute("markList", marksService.getMarksForUser(pageable, user));
+		model.addAttribute("markList", marksService.getMarksForUser(pageable, user).getContent());
+		model.addAttribute("page", marksService.getMarksForUser(pageable, user));
 		return "mark/list :: tableMarks";
 	}
 
