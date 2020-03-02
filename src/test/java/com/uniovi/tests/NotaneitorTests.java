@@ -12,32 +12,36 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.uniovi.tests.pageobjects.PO_HomeView;
 import com.uniovi.tests.pageobjects.PO_Properties;
+import com.uniovi.tests.pageobjects.PO_RegisterView;
+import com.uniovi.tests.pageobjects.PO_View;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class NotaneitorTests {
 
-
-	private static final String PathFirefox65 ="/usr/bin/firefox";
+	private static final String PathFirefox65 = "/usr/bin/firefox";
 
 	private static final String Geckdriver024 = "/usr/bin/geckodriver";
 
-	//En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens automáticas)):
+	// En Windows (Debe ser la versión 65.0.1 y desactivar las actualizacioens
+	// automáticas)):
 
-	//static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
+	// static String PathFirefox65 = "C:\\Program Files\\Mozilla
+	// Firefox\\firefox.exe";
 
-	//static String Geckdriver024 = "C:\\Path\\geckodriver024win64.exe";
+	// static String Geckdriver024 = "C:\\Path\\geckodriver024win64.exe";
 
-	//En MACOSX (Debe ser la versión 65.0.1 y desactivar las actualizacioens automáticas):
+	// En MACOSX (Debe ser la versión 65.0.1 y desactivar las actualizacioens
+	// automáticas):
 
-	//static String PathFirefox65 = "/Applications/Firefox.app/Contents/MacOS/firefox-bin";
+	// static String PathFirefox65 =
+	// "/Applications/Firefox.app/Contents/MacOS/firefox-bin";
 
-	//static String Geckdriver024 = "/Users/delacal/selenium/geckodriver024mac";
+	// static String Geckdriver024 = "/Users/delacal/selenium/geckodriver024mac";
 
-	//Común a Windows y a MACOSX
+	// Común a Windows y a MACOSX
 
 	static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
 	static String URL = "http://localhost:8090";
-
 
 	public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
 		System.setProperty("webdriver.firefox.bin", PathFirefox);
@@ -58,44 +62,59 @@ public class NotaneitorTests {
 
 	@Test
 	public void test() {
-		//fail("Not yet implemented");
+		// fail("Not yet implemented");
 	}
 
-	//Antes de la primera prueba
+	// Antes de la primera prueba
 	@BeforeClass
 	static public void begin() {
 	}
 
-	//PR01. Acceder a la página principal
+	// PR01. Acceder a la página principal
 	@Test
 	public void PR01() {
 		PO_HomeView.checkWelcome(driver, PO_Properties.getSPANISH());
 	}
 
-	//PR02. OPción de navegación. Pinchar en el enlace Registro en la página home
+	// PR02. OPción de navegación. Pinchar en el enlace Registro en la página home
 	@Test
 	public void PR02() {
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 	}
 
-	//PR03. OPción de navegación. Pinchar en el enlace Identificate en la página home
+	// PR03. OPción de navegación. Pinchar en el enlace Identificate en la página
+	// home
 	@Test
 	public void PR03() {
-		PO_HomeView.clickOption(driver, "login",  "class", "btn btn-primary");
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 	}
 
-	//PR04. OPción de navegación. Cambio de idioma de Español a Ingles y vuelta a Español
+	// PR04. OPción de navegación. Cambio de idioma de Español a Ingles y vuelta a
+	// Español
 	@Test
 	public void PR04() {
-		PO_HomeView.checkChangeIdiom(driver, "btnSpanish", "btnEnglish",
-				PO_Properties.getSPANISH(), PO_Properties.getENGLISH());
-		//SeleniumUtils.esperarSegundos(driver, 2);
+		PO_HomeView.checkChangeIdiom(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(),
+				PO_Properties.getENGLISH());
+		// SeleniumUtils.esperarSegundos(driver, 2);
 	}
 
-	//Al finalizar la última prueba
+	// PR05. Prueba del formulario de registro. registro con datos correctos
+	@Test
+	public void PR05() {
+		// Vamos al formulario de registro
+		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
+
+		// Rellenamos el formulario.
+		PO_RegisterView.fillForm(driver, "77777778A", "Josefo", "Perez", "77777", "77777");
+
+		// Comprobamos que entramos en la sección privada
+		PO_View.checkElement(driver, "text", "Notas del usuario");
+	}
+
+	// Al finalizar la última prueba
 	@AfterClass
 	static public void end() {
-		//Cerramos el navegador al finalizar las pruebas
+		// Cerramos el navegador al finalizar las pruebas
 		driver.quit();
 	}
 
