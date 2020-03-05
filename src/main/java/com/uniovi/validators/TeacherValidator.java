@@ -24,6 +24,7 @@ public class TeacherValidator implements Validator {
 		Teacher teacher = (Teacher) target;
 		String dni = teacher.getDni();
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dni", "Error.empty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "category", "Error.empty");
 		if (usersService.getUserByDni(dni) != null) {
 			errors.rejectValue("dni", "Error.teacher.dni.duplicate");
 		}

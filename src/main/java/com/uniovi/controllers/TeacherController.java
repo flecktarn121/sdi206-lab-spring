@@ -35,7 +35,7 @@ public class TeacherController {
 
 	@RequestMapping(value = "/teacher/add")
 	public String getTeacher(Model model) {
-		model.addAttribute("teacher", new User());
+		model.addAttribute("teacher", new Teacher());
 		return "teacher/add";
 	}
 

@@ -47,4 +47,27 @@ public class PO_PrivateView extends PO_NavView {
 		// COmprobamos que entramos en la pagina de login
 		PO_View.checkElement(driver, "text", texto);
 	}
+static public void fillFormAddTeacher(WebDriver driver, int userOrder, String namet, String surname, String dnit, String categoria) {
+		// Esperamos 5 segundo a que carge el DOM porque en algunos equipos falla
+		SeleniumUtils.esperarSegundos(driver, 5);
+
+		WebElement name = driver.findElement(By.name("name"));
+		name.clear();
+		name.sendKeys(namet);
+		WebElement lastName= driver.findElement(By.name("lastName"));
+		lastName.click();
+		lastName.clear();
+		lastName.sendKeys(surname);
+		WebElement dni= driver.findElement(By.name("dni"));
+		dni.click();
+		dni.clear();
+		dni.sendKeys(dnit);
+		WebElement cat = driver.findElement(By.name("category"));
+		cat.click();
+		cat.clear();
+		cat.sendKeys(categoria);
+		By boton = By.className("btn");
+		driver.findElement(boton).click();
+
+	}
 }
